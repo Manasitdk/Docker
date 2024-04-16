@@ -1,8 +1,11 @@
-from httpd
-run apt-get update -y
-run apt-get install unzip wget -y
-run mkdir -p /var/www/html/
-run wget https://www.free-css.com/assets/files/free-css-templates/download/page295/antique-cafe.zip
-run unzip antique-cafe.zip
-run cp -rvf 2126_antique_cafe/* /var/www/html/
+FROM ubuntu:latest
+
+RUN apt-get update && apt-get install -y apache2 && apt-get clean
+
+RUN mkdir -p /var/www/html/
+COPY . /var/www/html/
+
+EXPOSE 81
+
+CMD ["apache2ctl", "-D", "FOREGROUND"]
 
