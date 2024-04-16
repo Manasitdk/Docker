@@ -1,11 +1,15 @@
-FROM ubuntu:latest
+FROM python:3.8-slim
 
-RUN apt-get update && apt-get install -y apache2 && apt-get clean
+WORKDIR /app
 
-RUN mkdir -p /var/www/html/
-COPY . /var/www/html/
+COPY . /app
 
-EXPOSE 80
+RUN pip install --no-cache-dir -r requirements.txt
+RUN pip install flask 
 
-CMD ["apache2ctl", "-D", "FOREGROUND"]
+EXPOSE 5000
+
+ENV NAME World
+
+CMD ["python", "app.py"]
 
